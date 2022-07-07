@@ -80,7 +80,7 @@ The last row is the performance of TPT, which is not tuned on any source dataset
 <img src = "https://github.com/azshue/TPT/blob/gh-pages/assets/cross-datasets-figures.png?raw=true">
 </p>
 <p align = "center">
-An overview of Test-time Prompt Tuning (TPT)
+Cross-dataset improvement normalized by the zero-shot baseline performance.
 </p>
 
 
