@@ -102,15 +102,67 @@ Cross-dataset improvement normalized by the zero-shot baseline performance.
 </p>
 
 ### **Context-dependent Visual Reasoning on Bongard-HOI**
- we follow the setup in [Jiang et al](), and compare TPT with previous methods on 4 test splits of Bongard-HOI respectively. In Bongard-HOI, test images are split into four sets by their overlap in the HOI concept with the training data: whether the action $a$ or the object $o$ has appeared in the training data. Note that our CLIP-based TPT is not trained on the training split of Bongard-HOI, and thus the definition of the four splits is not strictly applicable to TPT. 
-
- |       Method       |                      |                        |       Test Splits      |                          | Average |
-|:------------------:|:--------------------:|:----------------------:|:----------------------:|:------------------------:|:-------:|
-|                    | seen act., seen obj. | unseen act., seen obj. | seen act., unseen obj. | unseen act., unseen obj. |         |
-|    CNN-baseline    |         50.03        |          49.89         |          49.77         |           50.01          |  49.92  |
-|    Meta-baseline   |         58.82        |          58.75         |          58.56         |           57.04          |  58.30  |
-|      HOITrans      |         59.50        |          64.38         |          63.10         |           62.87          |  62.46  |
-| TPT (w/ CLIP-RN50) |         66.39        |          68.50         |          65.98         |           65.48          |  66.59  |
+ we follow the setup in [Jiang et al](https://arxiv.org/abs/2205.13803), and compare TPT with previous methods on 4 test splits of Bongard-HOI respectively. In Bongard-HOI, test images are split into four sets by their overlap in the HOI concept with the training data: whether the action $a$ or the object $o$ has appeared in the training data. Note that our CLIP-based TPT is not trained on the training split of Bongard-HOI, and thus the definition of the four splits is not strictly applicable to TPT. 
+ 
+<style type="text/css">
+.tg  {border:none;border-collapse:collapse;border-color:#ccc;border-spacing:0;}
+.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:0px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:0px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+.tg .tg-nrix{text-align:center;vertical-align:middle}
+.tg .tg-dzk6{background-color:#f9f9f9;text-align:center;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-nrix" rowspan="2">Method</th>
+    <th class="tg-baqh" colspan="4">Test Splits </th>
+    <th class="tg-nrix" rowspan="2">Average</th>
+  </tr>
+  <tr>
+    <th class="tg-dzk6">seen act., seen obj.</th>
+    <th class="tg-dzk6">unseen act., seen obj.</th>
+    <th class="tg-dzk6">seen act., unseen obj.</th>
+    <th class="tg-dzk6">unseen act., unseen obj.</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-baqh">CNN-baseline</td>
+    <td class="tg-baqh">50.03</td>
+    <td class="tg-baqh">49.89</td>
+    <td class="tg-baqh">49.77</td>
+    <td class="tg-baqh">50.01</td>
+    <td class="tg-baqh">49.92</td>
+  </tr>
+  <tr>
+    <td class="tg-dzk6">Meta-baseline</td>
+    <td class="tg-dzk6">58.82</td>
+    <td class="tg-dzk6">58.75</td>
+    <td class="tg-dzk6">58.56</td>
+    <td class="tg-dzk6">57.04</td>
+    <td class="tg-dzk6">58.30</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">HOITrans</td>
+    <td class="tg-baqh">59.50</td>
+    <td class="tg-baqh">64.38</td>
+    <td class="tg-baqh">63.10</td>
+    <td class="tg-baqh">62.87</td>
+    <td class="tg-baqh">62.46</td>
+  </tr>
+  <tr>
+    <td class="tg-dzk6">TPT (w/ CLIP-RN50)</td>
+    <td class="tg-dzk6"><span style="font-weight:bold">66.39</span></td>
+    <td class="tg-dzk6"><span style="font-weight:bold">68.50</span></td>
+    <td class="tg-dzk6"><span style="font-weight:bold">65.98</span></td>
+    <td class="tg-dzk6"><span style="font-weight:bold">65.48</span></td>
+    <td class="tg-dzk6"><span style="font-weight:bold">66.59</span></td>
+  </tr>
+</tbody>
+</table>
 
 In the table above, CNN and Meta baselines are implemented based on a ResNet-50 (RN50). "*" denotes that the method uses ground truth HOI bounding boxes to assist the inference.
 
@@ -129,4 +181,5 @@ If you find our work useful, please consider citing:
 <!-- ## Acknowledgements -->
 
 ## Contact
+---
 For any questions, please contact Manli Shu (manlis@cs.umd.edu).
