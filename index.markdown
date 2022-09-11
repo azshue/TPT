@@ -20,14 +20,29 @@ layout: home
 generalization in various downstream tasks with properly designed text prompts. Instead of relying on hand-engineered prompts, recent works learn prompts using training data from downstream tasks, but this can be expensive and hard to generalize to new tasks and distributions. To this end, **we propose test-time prompt tuning (*TPT*)** as the first prompt tuning method that can **learn adaptive prompts on the fly with a single test sample**. TPT optimizes the prompt by minimizing the entropy with confidence selection so that the model has consistent predictions across different augmented views of each test sample. In the setting of evaluating natural distribution shifts, TPT improves the zero-shot top-1 accuracy of CLIP by 3.6% on average, even surpassing previous prompt tuning approaches that additionally require task-specific training data. In the setting of evaluating across-dataset generalization with unseen categories, TPT performs on par with the state-of-the-art approach that uses training data.  
 <br /> 
 
-## Test-time Prompt Tuning
-TPT tunes adaptive prompts on the fly with a single test sample, **without the need of training data or annotations**. TPT optimizes the prompt to encourage consistent predictions across augmented views of the same test image by minimizing the marginal entropy. In addition, we introduce ***confidence selection*** to filter out noisy augmentations.
+## **Test-time Prompt Tuning**
+---
+TPT tunes adaptive prompts on the fly with a single test sample. The tuned prompt is adapted to each task on each specific test sample. TPT retains the ***zero-shot generalization*** setting since no additional training data or annotations are used.   
+
+We explore TPT on two downstream tasks: image classification and context-dependent visual reasoning. For each downstream task, we design a customized test-time tuning strategy that fits the nature of the task. 
+
+For the downstream task of image classification, TPT optimizes the prompt to encourage consistent predictions across augmented views of the same test image by minimizing the marginal entropy. In addition, we introduce ***confidence selection*** to filter out noisy augmentations. 
 
 <p align = "center">
 <img src = "https://github.com/azshue/TPT/blob/gh-pages/assets/tpt-intro.png?raw=true">
 </p>
 <p align = "center">
-An overview of Test-time Prompt Tuning (TPT)
+Test-time Prompt Tuning (TPT) for image classification.
+</p>
+<br />
+
+For context-dependent visual reasoning on Bongard-HOI benchmark, a test sample contains two sets of support images (*i.e.*, context) and a query image for evaluation. On this task, TPT tunes both the prompt and class tokens to learn the context and differentiate between the two support sets.
+
+<p align = "center">
+<img src = "https://github.com/azshue/TPT/blob/gh-pages/assets/tpt-bongard.png?raw=true">
+</p>
+<p align = "center">
+Test-time Prompt Tuning (TPT) for context-dependent visual reasoning (Bongard-HOI).
 </p>
 <br />
 
@@ -46,13 +61,15 @@ We summarize existing prompt tuning methods for CLIP, and compare the difference
 </div>
 <br />
 
-## Evaluation
+## **Evaluation**
+---
+Below are the main results from our paper. To learn more about the datasets and baselines, we refer readers to Section 4 of our paper. 
+      
 
-
-### Generalization to Natural Distribution Shifts
+### **Generalization to Natural Distribution Shifts**
 
 <!-- We evaluate model's robustness to natural distribution shifts on 4 ImageNet Variants as follows, which have been considered as out-of-distribution (OOD) data for ImageNet in previous work. -->
-Compared to existing prompt tuning methods that requires training data, TPT generalizes better to data distribution shifts. Note that among the methods in the table below, CoOp and CoCoOp are tuned on ImageNet using 16-shot training data per category. Baseline CLIP, prompt ensemble and TPT (ours) do not requires training data.
+Compared to existing prompt tuning methods that requires training data, TPT generalizes better to data distribution shifts. Note that among the methods in the table below, CoOp and CoCoOp are tuned on ImageNet using 16-shot training data per category. Baseline CLIP, prompt ensemble and TPT (ours) do not require training data.
 
 
 <div align="center">
@@ -70,7 +87,8 @@ Compared to existing prompt tuning methods that requires training data, TPT gene
 </div>
 <br />
 
-### Cross-Datasets Generalization
+### **Cross-Datasets Generalization**
+
 <!-- Pre-trained vision-language models like CLIP are ideal for ``open-world" problems. For example, we can apply CLIP to classify arbitrary categories in a zero-shot manner in image classification. However, a prompt tuned on a specific downstream dataset can be less generalizable to categories outside its training set. We conduct cross-dataset evaluation on image classification, where we consider 10 different source/target datasets.  -->
 
 In each matrix $A$, $A_{i, j}$ is the **normalized relative improvement** on the $j_{th}$ dataset of using the prompt tuned on the $i$-th dataset. The value $A_{i, j}$ stands for **how well a method trained on a source dataset $i$ performs on a target dataset $j$**, in comparison with a zero-shot CLIP baseline (using a hand-crafted prompt). Thus, the higher, the better.
@@ -83,8 +101,21 @@ The last row is the performance of TPT, which is not tuned on any source dataset
 Cross-dataset improvement normalized by the zero-shot baseline performance.
 </p>
 
+### **Context-dependent Visual Reasoning on Bongard-HOI**
+ we follow the setup in [Jiang et al](), and compare TPT with previous methods on 4 test splits of Bongard-HOI respectively. In Bongard-HOI, test images are split into four sets by their overlap in the HOI concept with the training data: whether the action $a$ or the object $o$ has appeared in the training data. Note that our CLIP-based TPT is not trained on the training split of Bongard-HOI, and thus the definition of the four splits is not strictly applicable to TPT. 
+
+ |       Method       |                      |                        |       Test Splits      |                          | Average |
+|:------------------:|:--------------------:|:----------------------:|:----------------------:|:------------------------:|:-------:|
+|                    | seen act., seen obj. | unseen act., seen obj. | seen act., unseen obj. | unseen act., unseen obj. |         |
+|    CNN-baseline    |         50.03        |          49.89         |          49.77         |           50.01          |  49.92  |
+|    Meta-baseline   |         58.82        |          58.75         |          58.56         |           57.04          |  58.30  |
+|      HOITrans      |         59.50        |          64.38         |          63.10         |           62.87          |  62.46  |
+| TPT (w/ CLIP-RN50) |         66.39        |          68.50         |          65.98         |           65.48          |  66.59  |
+
+In the table above, CNN and Meta baselines are implemented based on a ResNet-50 (RN50). "*" denotes that the method uses ground truth HOI bounding boxes to assist the inference.
 
 ## Citation
+---
 If you find our work useful, please consider citing:
 ```
 @article{shu2022tpt
