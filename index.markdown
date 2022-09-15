@@ -8,9 +8,9 @@ layout: home
 
 # Test-Time Prompt Tuning for Zero-shot Generalization in Vision-Language Models
 
-### [Manli Shu](https://azshue.github.io/)<sup>1</sup>, [Chaowei Xiao](https://xiaocw11.github.io/)<sup>2</sup>, [Weili Nie](https://weilinie.github.io/)<sup>2</sup>, [De-An Huang](https://ai.stanford.edu/~dahuang/)<sup>2</sup>, [Zhiding Yu](https://chrisding.github.io/)<sup>2</sup>,      
-### [Tom Goldstein](https://www.cs.umd.edu/~tomg/)<sup>1</sup>, [Anima Anandkumar](http://tensorlab.cms.caltech.edu/users/anima/)<sup>2,3</sup>
-### <sup>1</sup> University of Maryland, <sup>2</sup> NVIDIA, <sup>3</sup> Caltech
+### [Manli Shu](https://azshue.github.io/)<sup>1</sup>, [Weili Nie](https://weilinie.github.io/)<sup>2</sup>, [De-An Huang](https://ai.stanford.edu/~dahuang/)<sup>2</sup>, [Zhiding Yu](https://chrisding.github.io/)<sup>2</sup>,      
+### [Tom Goldstein](https://www.cs.umd.edu/~tomg/)<sup>1</sup>, [Anima Anandkumar](http://tensorlab.cms.caltech.edu/users/anima/)<sup>2,3</sup>, [Chaowei Xiao](https://xiaocw11.github.io/)<sup>2,4</sup>
+### <sup>1</sup> University of Maryland, <sup>2</sup> NVIDIA, <sup>3</sup> Caltech， <sup>4</sup> Arizona State University
 
 ### [<ins>arxiv</ins>]() &nbsp; [<ins>code</ins>]()
 </div>
