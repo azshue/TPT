@@ -12,7 +12,7 @@ layout: home
 ### [Tom Goldstein](https://www.cs.umd.edu/~tomg/)<sup>1</sup>, [Anima Anandkumar](http://tensorlab.cms.caltech.edu/users/anima/)<sup>2,3</sup>, [Chaowei Xiao](https://xiaocw11.github.io/)<sup>2,4</sup>
 ### <sup>1</sup> University of Maryland, <sup>2</sup> NVIDIA, <sup>3</sup> Caltech， <sup>4</sup> Arizona State University
 
-### [<ins>arxiv</ins>]() &nbsp; [<ins>code</ins>]()
+### [<ins>paper</ins>](https://arxiv.org/pdf/2209.07511.pdf) &nbsp; [<ins>code</ins>](https://github.com/azshue/TPT)
 </div>
 <br>
 
@@ -172,8 +172,8 @@ If you find our work useful, please consider citing:
 ```
 @article{shu2022tpt
     title={Test-Time Prompt Tuning for Zero-shot Generalization in Vision-Language Models},
-    author={Manli, Shu and Chaowei, Xiao and Weili, Nie and De-An, Huang and Zhiding, Yu and Tom, Goldstein and Anima, Anandkumar},
-    journal={arXiv preprint arXiv: },
+    author={Manli, Shu and Weili, Nie and De-An, Huang and Zhiding, Yu and Tom, Goldstein and Anima, Anandkumar and Chaowei, Xiao},
+    journal={arXiv preprint arXiv: 2209.07511},
     year={2022}
 }
 ```
