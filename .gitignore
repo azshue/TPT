@@ -14,7 +14,6 @@ __pycache__/
 .pytest_cache
 .ipynb_checkpoints
 */*.pth
-*.sh
 *.ipynb
 thumbs.db
 .DS_Store
