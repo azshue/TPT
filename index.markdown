@@ -12,7 +12,7 @@ layout: home
 ### [Tom Goldstein](https://www.cs.umd.edu/~tomg/)<sup>1</sup>, [Anima Anandkumar](http://tensorlab.cms.caltech.edu/users/anima/)<sup>2,3</sup>, [Chaowei Xiao](https://xiaocw11.github.io/)<sup>2,4</sup>
 ### <sup>1</sup> University of Maryland, <sup>2</sup> NVIDIA, <sup>3</sup> Caltech， <sup>4</sup> Arizona State University
 
-### [<ins>paper</ins>](https://arxiv.org/pdf/2209.07511.pdf) &nbsp; [<ins>code (to be released soon)</ins>](https://github.com/azshue/TPT)
+### [<ins>paper</ins>](https://arxiv.org/pdf/2209.07511.pdf) &nbsp; [<ins>code</ins>](https://github.com/azshue/TPT)
 </div>
 <br>
 
@@ -92,7 +92,7 @@ Compared to existing prompt tuning methods that requires training data, TPT gene
 <!-- Pre-trained vision-language models like CLIP are ideal for ``open-world" problems. For example, we can apply CLIP to classify arbitrary categories in a zero-shot manner in image classification. However, a prompt tuned on a specific downstream dataset can be less generalizable to categories outside its training set. We conduct cross-dataset evaluation on image classification, where we consider 10 different source/target datasets.  -->
 
 In each matrix $A$, $A_{i, j}$ is the **normalized relative improvement** on the $j_{th}$ dataset of using the prompt tuned on the $i$-th dataset. The value $A_{i, j}$ stands for **how well a method trained on a source dataset $i$ performs on a target dataset $j$**, in comparison with a zero-shot CLIP baseline (using a hand-crafted prompt). Thus, the higher, the better.
-The last row is the performance of TPT, which is not tuned on any source dataset. The last column summarize the average improvement over 10 datasets, measuring the overall generalization ability across the 10 datasets.
+The last row is the performance of TPT, which is not tuned on any source dataset. The last column summarizes the average improvement over 10 datasets, measuring the overall generalization ability across the 10 datasets.
 
 <p align = "center">
 <img src = "https://github.com/azshue/TPT/blob/gh-pages/assets/cross-datasets-figures.png?raw=true">
