@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/" />
+<meta property="og:url" content="http://localhost:4000/" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","url":"http://localhost:4000/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/"></a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <!-- <div class="trigger"><a class="page-link" href="/about/">About</a></div> -->
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="home"><!-- ---
+# Feel free to add content and custom Front Matter to this file.
+# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
+
+layout: home
+--- -->
+<div align="center">
+
+  <h1 id="test-time-prompt-tuning-for-zero-shot-generalization-in-vision-language-models">Test-Time Prompt Tuning for Zero-shot Generalization in Vision-Language Models</h1>
+
+  <h3 id="manli-shu1-chaowei-xiao2-weili-nie2-de-an-huang2-zhiding-yu2"><a href="">Manli Shu</a><sup>1</sup>, <a href="https://xiaocw11.github.io/">Chaowei Xiao</a><sup>2</sup>, <a href="https://weilinie.github.io/">Weili Nie</a><sup>2</sup>, <a href="https://ai.stanford.edu/~dahuang/">De-An Huang</a><sup>2</sup>, <a href="https://chrisding.github.io/">Zhiding Yu</a><sup>2</sup>,</h3>
+  <h3 id="tom-goldstein1-anima-anandkumar23"><a href="https://www.cs.umd.edu/~tomg/">Tom Goldstein</a><sup>1</sup>, <a href="http://tensorlab.cms.caltech.edu/users/anima/">Anima Anandkumar</a><sup>2,3</sup></h3>
+  <h3 id="university-of-maryland-2-nvidia-3-caltech"><sup>1</sup> University of Maryland, <sup>2</sup> NVIDIA, <sup>3</sup> Caltech</h3>
+
+  <h3 id="arxiv--code"><a href=""><ins>arxiv</ins></a>   <a href=""><ins>code</ins></a></h3>
+</div>
+<p><br /></p>
+
+<p><strong><em>Abstract</em></strong>: Pre-trained vision-language models (e.g., CLIP) have shown impressive zero-shot
+generalization in various downstream tasks with properly designed text prompts. Instead of relying on hand-engineered prompts, recent works learn prompts using training data from downstream tasks, but this can be expensive and hard to generalize to new tasks and distributions. To this end, <strong>we propose test-time prompt tuning (<em>TPT</em>)</strong> as the first prompt tuning method that can <strong>learn adaptive prompts on the fly with a single test sample</strong>. TPT optimizes the prompt by minimizing the entropy with confidence selection so that the model has consistent predictions across different augmented views of each test sample. In the setting of evaluating natural distribution shifts, TPT improves the zero-shot top-1 accuracy of CLIP by 3.6% on average, even surpassing previous prompt tuning approaches that additionally require task-specific training data. In the setting of evaluating across-dataset generalization with unseen categories, TPT performs on par with the state-of-the-art approach that uses training data.<br />
+<br /></p>
+
+<h2 id="test-time-prompt-tuning">Test-time Prompt Tuning</h2>
+<p>TPT tunes adaptive prompts on the fly with a single test sample, <strong>without the need of training data or annotations</strong>. TPT optimizes the prompt to encourage consistent predictions across augmented views of the same test image by minimizing the marginal entropy. In addition, we introduce <strong><em>confidence selection</em></strong> to filter out noisy augmentations.</p>
+
+<p align="center">
+<img src="https://github.com/azshue/TPT/blob/gh-pages/assets/tpt-intro.png?raw=true" />
+</p>
+<p align="center">
+An overview of Test-time Prompt Tuning (TPT)
+</p>
+<p><br /></p>
+
+<p>We summarize existing prompt tuning methods for CLIP, and compare the differences between TPT and existing methods. 
+<!-- We focus on three preferred properties of a prompting strategy, and use them to categorize the methods. "Learnable" means the prompt is optimized based on certain objective functions. "No training data" means that no additional data are needed for tuning the prompt. "Input-adaptive" means the prompt can be adaptive to each input instance. --></p>
+
+<div align="center">
+
+  <table>
+    <thead>
+      <tr>
+        <th>Prompt Type</th>
+        <th style="text-align: center">Learnable</th>
+        <th style="text-align: center">No training data</th>
+        <th style="text-align: center">Input-adaptive</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2103.00020">Hand-crafted</a></td>
+        <td style="text-align: center"> </td>
+        <td style="text-align: center">✓</td>
+        <td style="text-align: center"> </td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2109.01134">CoOp</a></td>
+        <td style="text-align: center">✓</td>
+        <td style="text-align: center"> </td>
+        <td style="text-align: center"> </td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2203.05557">CoCoOp</a></td>
+        <td style="text-align: center">✓</td>
+        <td style="text-align: center"> </td>
+        <td style="text-align: center">✓</td>
+      </tr>
+      <tr>
+        <td>TPT (ours)</td>
+        <td style="text-align: center">✓</td>
+        <td style="text-align: center">✓</td>
+        <td style="text-align: center">✓</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+<p><br /></p>
+
+<h2 id="evaluation">Evaluation</h2>
+
+<h3 id="generalization-to-natural-distribution-shifts">Generalization to Natural Distribution Shifts</h3>
+
+<!-- We evaluate model's robustness to natural distribution shifts on 4 ImageNet Variants as follows, which have been considered as out-of-distribution (OOD) data for ImageNet in previous work. -->
+<p>Compared to existing prompt tuning methods that requires training data, TPT generalizes better to data distribution shifts. Note that among the methods in the table below, CoOp and CoCoOp are tuned on ImageNet using 16-shot training data per category. Baseline CLIP, prompt ensemble and TPT (ours) do not requires training data.</p>
+
+<div align="center">
+
+  <table>
+    <thead>
+      <tr>
+        <th>Method</th>
+        <th style="text-align: center">ImageNet(IN)</th>
+        <th style="text-align: center">IN-A</th>
+        <th style="text-align: center">IN-V2</th>
+        <th style="text-align: center">IN-R</th>
+        <th style="text-align: center">IN-Sketch</th>
+        <th style="text-align: center">Average</th>
+        <th style="text-align: center">OOD Average</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2103.00020">CLIP-RN50</a></td>
+        <td style="text-align: center">58.16</td>
+        <td style="text-align: center">21.83</td>
+        <td style="text-align: center">51.41</td>
+        <td style="text-align: center">56.15</td>
+        <td style="text-align: center">33.37</td>
+        <td style="text-align: center">44.18</td>
+        <td style="text-align: center">40.69</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2103.00020">Ensembled prompt</a></td>
+        <td style="text-align: center">59.81</td>
+        <td style="text-align: center">23.24</td>
+        <td style="text-align: center">52.91</td>
+        <td style="text-align: center"><strong>60.72</strong></td>
+        <td style="text-align: center">35.48</td>
+        <td style="text-align: center">46.43</td>
+        <td style="text-align: center">43.09</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2109.01134">CoOp</a></td>
+        <td style="text-align: center"><ins>63.33</ins></td>
+        <td style="text-align: center">23.06</td>
+        <td style="text-align: center">55.40</td>
+        <td style="text-align: center">56.60</td>
+        <td style="text-align: center">34.67</td>
+        <td style="text-align: center">46.61</td>
+        <td style="text-align: center">42.43</td>
+      </tr>
+      <tr>
+        <td><a href="https://arxiv.org/abs/2203.05557">CoCoOp</a></td>
+        <td style="text-align: center">62.81</td>
+        <td style="text-align: center">23.32</td>
+        <td style="text-align: center"><ins>55.72</ins></td>
+        <td style="text-align: center">57.74</td>
+        <td style="text-align: center">34.48</td>
+        <td style="text-align: center">46.81</td>
+        <td style="text-align: center">42.82</td>
+      </tr>
+      <tr>
+        <td>TPT (ours)</td>
+        <td style="text-align: center">60.74</td>
+        <td style="text-align: center"><ins>26.67</ins></td>
+        <td style="text-align: center">54.7</td>
+        <td style="text-align: center"><ins>59.11</ins></td>
+        <td style="text-align: center"><ins>35.09</ins></td>
+        <td style="text-align: center"><ins>47.26</ins></td>
+        <td style="text-align: center"><ins>43.89</ins></td>
+      </tr>
+      <tr>
+        <td>TPT + CoOp</td>
+        <td style="text-align: center"><strong>64.73</strong></td>
+        <td style="text-align: center"><strong>30.32</strong></td>
+        <td style="text-align: center"><strong>57.83</strong></td>
+        <td style="text-align: center">58.99</td>
+        <td style="text-align: center"><strong>35.86</strong></td>
+        <td style="text-align: center"><strong>49.55</strong></td>
+        <td style="text-align: center"><strong>45.75</strong></td>
+      </tr>
+      <tr>
+        <td>TPT + CoCoOp</td>
+        <td style="text-align: center">62.93</td>
+        <td style="text-align: center">27.40</td>
+        <td style="text-align: center">56.60</td>
+        <td style="text-align: center">59.88</td>
+        <td style="text-align: center">35.43</td>
+        <td style="text-align: center">48.45</td>
+        <td style="text-align: center">44.83</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+<p><br /></p>
+
+<h3 id="cross-datasets-generalization">Cross-Datasets Generalization</h3>
+<!-- Pre-trained vision-language models like CLIP are ideal for ``open-world" problems. For example, we can apply CLIP to classify arbitrary categories in a zero-shot manner in image classification. However, a prompt tuned on a specific downstream dataset can be less generalizable to categories outside its training set. We conduct cross-dataset evaluation on image classification, where we consider 10 different source/target datasets.  -->
+
+<p>In each matrix $A$, $A_{i, j}$ is the <strong>normalized relative improvement</strong> on the $j_{th}$ dataset of using the prompt tuned on the $i$-th dataset. The value $A_{i, j}$ stands for <strong>how well a method trained on a source dataset $i$ performs on a target dataset $j$</strong>, in comparison with a zero-shot CLIP baseline (using a hand-crafted prompt). Thus, the higher, the better.
+The last row is the performance of TPT, which is not tuned on any source dataset. The last column summarize the average improvement over 10 datasets, measuring the overall generalization ability across the 10 datasets.</p>
+
+<p align="center">
+<img src="https://github.com/azshue/TPT/blob/gh-pages/assets/cross-datasets-figures.png?raw=true" />
+</p>
+<p align="center">
+Cross-dataset improvement normalized by the zero-shot baseline performance.
+</p>
+
+<h2 id="citation">Citation</h2>
+<p>If you find our work useful, please consider citing:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@article{shu2022tpt
+    title={Test-Time Prompt Tuning for Zero-shot Generalization in Vision-Language Models},
+    author={Manli, Shu and Chaowei, Xiao and Weili, Nie and De-An, Huang and Zhiding, Yu and Tom, Goldstein and Anima, Anandkumar},
+    journal={arXiv preprint arXiv: },
+    year={2022}
+}
+</code></pre></div></div>
+
+<!-- ## Acknowledgements -->
+
+<h2 id="contact">Contact</h2>
+<p>For any questions, please contact Manli Shu (manlis@cs.umd.edu).</p>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"></h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name"></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
