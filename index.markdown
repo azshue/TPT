@@ -16,6 +16,14 @@ layout: home
 </div>
 <br>
 
+<p align = "center">
+<img src = "https://github.com/azshue/TPT/blob/gh-pages/assets/tpt-intro.gif?raw=true">
+</p>
+<p align = "center">
+Test-time Prompt Tuning (TPT) for image classification.
+</p>
+<br />
+
 
 ***Abstract***: Pre-trained vision-language models (e.g., CLIP) have shown impressive zero-shot
 generalization in various downstream tasks with properly designed text prompts. Instead of relying on hand-engineered prompts, recent works learn prompts using training data from downstream tasks, but this can be expensive and hard to generalize to new tasks and distributions. To this end, **we propose test-time prompt tuning (*TPT*)** as the first prompt tuning method that can **learn adaptive prompts on the fly with a single test sample**. TPT optimizes the prompt by minimizing the entropy with confidence selection so that the model has consistent predictions across different augmented views of each test sample. In the setting of evaluating natural distribution shifts, TPT improves the zero-shot top-1 accuracy of CLIP by 3.6% on average, even surpassing previous prompt tuning approaches that additionally require task-specific training data. In the setting of evaluating across-dataset generalization with unseen categories, TPT performs on par with the state-of-the-art approach that uses training data.  
@@ -30,7 +38,7 @@ We explore TPT on two downstream tasks: image classification and context-depende
 For the downstream task of image classification, TPT optimizes the prompt to encourage consistent predictions across augmented views of the same test image by minimizing the marginal entropy. In addition, we introduce ***confidence selection*** to filter out noisy augmentations. 
 
 <p align = "center">
-<img src = "https://github.com/azshue/TPT/blob/gh-pages/assets/tpt-intro.gif?raw=true">
+<img src = "https://github.com/azshue/TPT/blob/gh-pages/assets/tpt-intro.png?raw=true">
 </p>
 <p align = "center">
 Test-time Prompt Tuning (TPT) for image classification.
